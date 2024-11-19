@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로또 일등은 나의것!</title>
+    <style>
+    *{margin: 0; padding: 0;
+        text-align: center; list-style: none;
+        background-color: #dbf1fe;}
+    h1{margin: 100px auto;
+        color: #027bc4;
+    font-size: 3rem;}
+    h1>span{
+        color: #e8700f;
+    }
+    #dice{
+        width: 200px; height: 200px; line-height: 200px;
+        background-color: #f9c300;
+        border-radius: 50%;
+        margin: 10px auto;
+        font-size: 100px; font-weight: bold;
+    }
+    .btn{
+        padding: 20px 30px;
+        font-size: 1.7em; border: none;
+        background-color: #11619c;
+        cursor: pointer;
+        border-radius: 10px;
+        margin-top: 20px;
+        color: white;
+    }
+    .reset{
+        margin-left: 20px;
+        padding: 15px 30px;
+        font-size: 1.2em;
+        border: none; color: #fff; background-color: #9e9e9e;
+        cursor: pointer;
+    }
+    .showNum{display: flex;
+        width: 1280px; margin: 50px auto;
+        justify-content: space-around;}
+    .showNum>li{
+        width: 200px; height: 200px;
+        border: 2px solid #bbbbbb;
+        border-radius: 10px;
+        background-color: white;
+        font-size: 4em; line-height: 200px;
+    }
+</style>
+</head>
+<body>
+    <h1><span>로또</span>번호 생성기</h1>
+    <p id="dice"></p>
+    <button onclick="roll()" class="btn">버튼을 클릭하세요</button>
+    <button class="reset" onclick="clearBtn()">RESET</button>
+    <ul class="showNum">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <script>
+        let numbers = [];
+
+        function uniqueNum(){
+            let result;
+            do{
+                result = Math.floor(Math.random() * 45) + 1;
+            }while(numbers.includes(result));
+            return result;
+        }
+        function roll(){
+            let result = uniqueNum();
+            let dice = document.getElementById("dice");
+            
+            dice.innerHTML = result;
+
+            numbers.push(result);
+
+            let listItems = document.querySelectorAll(".showNum li");
+
+            listItems.forEach((li, index) => {
+                if(index < numbers.length){
+                    li.innerHTML = numbers[index];
+                }
+            });
+        }
+
+        function clearBtn(){
+            numbers=[];
+            dice.innerHTML ="";
+
+            let  listItemAll = document.querySelectorAll(".showNum>li");
+            listItemAll.forEach(li => li.innerHTML="");
+        }
+    </script>
+</body>
+</html>
